@@ -19,3 +19,6 @@ RUN dpkg -i sqlcmd_1.6.0-1_all.deb
 FROM mcr.microsoft.com/azure-sql-edge:latest as runner
 
 COPY --from=builder /usr/bin/sqlcmd /usr/bin/sqlcmd
+COPY entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT [ "/entrypoint.sh" ]

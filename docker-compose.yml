@@ -2,8 +2,8 @@
 
 services:
   mssql:
-    # image: mcr.microsoft.com/azure-sql-edge:latest
     container_name: mssql
+    hostname: mssql
     build:
       context: .
       dockerfile: Dockerfile
@@ -20,30 +20,3 @@ services:
       - 1433:1433
     volumes:
       - ./data:/var/opt/mssql
-    # TODO: MSSQL_SA_PASSWORD isn't correctly setting the sa password
-    # command: >
-    #   bash -c '/usr/bin/sqlcmd \
-    #     -S mssql \
-    #     -U sa \
-    #     -P $$MSSQL_SA_PASSWORD \
-    #     -d tempdb \
-    #     -q "EXIT(RESTORE DATABASE $$MSSQL_DATABASE FROM DISK = $$MSSQL_BACKUP)"; wait;'
-
-  # sqlcmd:
-  #   image: mcr.microsoft.com/mssql-tools:latest
-  #   container_name: mssql-aw-sqlcmd
-  #   platform: linux/amd64
-  #   stdin_open: true
-  #   environment:
-  #     - MSSQL_SA_PASSWORD=${MSSQL_SA_PASSWORD?MSSQL_SA_PASSWORD not set}
-  #     - MSSQL_DATABASE=${MSSQL_DATABASE?MSSQL_DATABASE not set}
-  #     - MSSQL_BACKUP=${MSSQL_BACKUP?MSSQL_BACKUP not set}
-  #   volumes:
-  #     - ./data/backup:/var/opt/mssql/backup
-  #   command: >
-  #     bash -c '/opt/mssql-tools/bin/sqlcmd \
-  #       -S mssql \
-  #       -U sa \
-  #       -P $$MSSQL_SA_PASSWORD \
-  #       -d tempdb \
-  #       -q "EXIT(RESTORE DATABASE $$MSSQL_DATABASE FROM DISK = $$MSSQL_BACKUP)"; wait;'
