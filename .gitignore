@@ -1,0 +1,6 @@
+.env
+data/
+
+!.gitkeep
+!.env.example
+!**/restore.sql
